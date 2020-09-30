@@ -29,7 +29,9 @@ RUN \
  fi && \
  curl -o \
 	/tmp/grocy.tar.gz -L \
-	"https://github.com/grocy/grocy/archive/${GROCY_RELEASE}.tar.gz" && \
+#	"https://github.com/grocy/grocy/archive/${GROCY_RELEASE}.tar.gz" && \
+	"https://github.com/lowlee/grocy/archive/master.tar.gz" && \
+#	"https://github.com/lowlee/grocy/archive/3d7dfece4c316209091967ef5684e9bb5c72c8c9.tar.gz" && \
  tar xf \
 	/tmp/grocy.tar.gz -C \
 	/app/grocy/ --strip-components=1 && \
@@ -39,7 +41,7 @@ RUN \
  composer install -d /app/grocy --no-dev && \
  echo "**** install yarn packages ****" && \
  cd /app/grocy && \
- yarn && \
+ yarn --network-timeout 100000 && \
  echo "**** cleanup ****" && \
  apk del --purge \
 	build-dependencies && \
